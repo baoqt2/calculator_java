@@ -118,8 +118,10 @@ public class GUI_Calculator_Assignment extends JFrame
 				case "/":
 					if (total == 0) 
 						total = num;
-					else
-						total /= num;	
+					else {
+						total /= num;
+						
+					}	
 					break;
 				default:
 					break;
@@ -133,21 +135,14 @@ public class GUI_Calculator_Assignment extends JFrame
 			if (e.getSource() == oneButton) {
 				display += "1";
 				result_field.setText(display);
-
-//				oneButton.addActionListener(new ButtonListener());
 			}
 			else if (e.getSource() == twoButton) {
 				display += "2";
 				result_field.setText(display);
-
-//				twoButton.addActionListener(new ButtonListener());
 			}
 			else if (e.getSource() == threeButton) {
 				display += "3";
 				result_field.setText(display);
-
-//				threeButton.addActionListener(new ButtonListener());
-
 			}
 			else if (e.getSource() == fourButton) {
 				display += "4";
@@ -209,9 +204,14 @@ public class GUI_Calculator_Assignment extends JFrame
 			}
 			else if (e.getSource() == divButton)	{
 				last_operator = "/";
-				get_result(display, last_operator);
-				display="";
-				result_field.setText(Double.toString(total));
+				if (display == "0") {
+					result_field.setText("Invalid");
+				}
+				else {
+					get_result(display, last_operator);
+					display="";
+					result_field.setText(Double.toString(total)); 
+				}
 			}
 			else if (e.getSource() == resetButton){
 				last_operator = "";
@@ -219,10 +219,7 @@ public class GUI_Calculator_Assignment extends JFrame
 				temp = 0;
 				display = "";
 				result_field.setText(Double.toString(total));
-
 			}
-
-
 		}
 	}
 
