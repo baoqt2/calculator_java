@@ -1,18 +1,15 @@
-//Ann Trac
-// package myJavaFXpkg;
-
+//necessary libraries
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.lang.model.util.ElementScanner6;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
-
 import java.io.IOException;
 
-
+//main class for the project using JFrame for GUI
 public class GUI_Calculator_Assignment extends JFrame
 {
+	//declare buttons for GUI 
 	private JButton oneButton = new JButton("1");
 	private JButton twoButton = new JButton("2");
 	private JButton threeButton = new JButton("3");
@@ -30,16 +27,21 @@ public class GUI_Calculator_Assignment extends JFrame
 	private JButton divButton = new JButton("/");
 	private JButton equalButton = new JButton("=");
 	private JButton resetButton = new JButton("Reset");
-
+	//declare a text field for displaying the result
 	private JTextField result_field = new JTextField("");
+
+	//global varibles
 	String display = "";
 	int counter = 0;
 	double total,temp = 0.0;
 	String last_operator = "";
 
+	//an instance of the GUI_Calculator_Assignment class
 	public GUI_Calculator_Assignment () {
-		double result = 0.0;
+		//declare a panel to display GUI
 		JPanel p1 = new JPanel(new GridLayout(5,2));
+
+		//add all buttens and text fields into GUI
 		p1.add(sevenButton);
 		p1.add(eightButton);
 		p1.add(nineButton);
@@ -58,16 +60,22 @@ public class GUI_Calculator_Assignment extends JFrame
 		p1.add(decButton);
 		p1.add(addButton);
 		p1.add(equalButton);
+		p1.add(result_field);
+		//declare a seperate panel for displaying the result and a reset button
 		JPanel p2 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		//add these into the second penal
 		p2.add(result_field);
 		p2.add(resetButton);
 
-		p1.add(result_field);
-        zeroButton.setSize(50,30);
+        //if wish to set button size, do:
+		//zeroButton.setSize(50,30);
 
+		//set up GUI
 		p1.setBorder(new TitledBorder("Thu's Calculator"));
 		add(p1, BorderLayout.CENTER);
 		add(p2,BorderLayout.SOUTH);
+
+		//connect buttons to a GUI listener 
 		oneButton.addActionListener(new ButtonListener());
 		twoButton.addActionListener(new ButtonListener());
 		threeButton.addActionListener(new ButtonListener());
@@ -87,13 +95,10 @@ public class GUI_Calculator_Assignment extends JFrame
 		resetButton.addActionListener(new ButtonListener());
 	}
 
+	//this class will assist interaction/connection between mouse and GUI
 	private class ButtonListener implements ActionListener {
-		
-		public int str_to_int(String num) {
-			Integer stringtoInteger = Integer.parseInt(num);
-        	return stringtoInteger.intValue();
-		}
 	
+		//this function handles the necessary calculations
 		public void get_result(String num_string, String last_operator) {
 			double num = Integer.parseInt(num_string);
 			switch (last_operator){
@@ -129,9 +134,11 @@ public class GUI_Calculator_Assignment extends JFrame
 			
 	
 		}
+
+		//This overriden function using Actionlistener to obtain information from the mouse
 		@Override
 		public void actionPerformed(ActionEvent e) {
-					
+			//a complex if-else if statement that identifies which action event had just occurred from the mouse
 			if (e.getSource() == oneButton) {
 				display += "1";
 				result_field.setText(display);
@@ -178,7 +185,9 @@ public class GUI_Calculator_Assignment extends JFrame
 				display += "0";
 				result_field.setText(display);
 			}
-			else if (e.getSource() == equalButton) {
+			//if not numbers entered, call get_result function to perform calculations
+			//display total in result field  
+			else if (e.getSource() == equalButton) {	
 				result_field.setText(display);				
 				get_result(display, last_operator);				
 				result_field.setText(Double.toString(total));
@@ -213,6 +222,7 @@ public class GUI_Calculator_Assignment extends JFrame
 					result_field.setText(Double.toString(total)); 
 				}
 			}
+			//additional option for resetting the calculator
 			else if (e.getSource() == resetButton){
 				last_operator = "";
 				total = 0;
@@ -223,6 +233,7 @@ public class GUI_Calculator_Assignment extends JFrame
 		}
 	}
 
+	//main function: create an instance of this project and set up a GUI
 	public static void main(String[] args){
 		GUI_Calculator_Assignment frame = new GUI_Calculator_Assignment();
 		frame.pack();
